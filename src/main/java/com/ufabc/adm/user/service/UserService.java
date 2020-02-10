@@ -23,6 +23,10 @@ public class UserService {
     return userRepository.findAll();
   }
   
+  public User getById(Integer id) {
+    return userRepository.findById(id).orElseThrow();
+  }
+  
   public User create(User user) {
     User newUser = userRepository.save(user);
     

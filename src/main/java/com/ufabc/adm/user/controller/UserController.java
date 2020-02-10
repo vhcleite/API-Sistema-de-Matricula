@@ -32,6 +32,11 @@ public class UserController {
     
   }
   
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<User> findById(@PathVariable Integer id) {
+    return ResponseEntity.ok().body(userService.getById(id));
+  }
+  
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
     userService.delete(id);
