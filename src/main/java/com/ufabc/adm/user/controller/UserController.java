@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.ufabc.adm.user.dto.UserDtoForList;
 import com.ufabc.adm.user.model.User;
 import com.ufabc.adm.user.service.UserService;
 
@@ -27,9 +28,12 @@ public class UserController {
   UserService userService;
   
   @GetMapping
-  public ResponseEntity<List<User>> findAll() {
-    return ResponseEntity.ok().body(userService.getAll().stream().collect(Collectors.toList()));
+  public ResponseEntity<List<UserDtoForList>> findAll() {
     
+    List<UserDtoForList> users = userService.getAll().stream().map(u -> new UserDtoForList(u))
+        .collect(Collectors.toList());
+    
+    return ResponseEntity.ok().body(users);
   }
   
   @GetMapping(value = "/{id}")
